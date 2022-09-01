@@ -2,11 +2,23 @@
 
 ## Installation
 
+### Install Python Libraries
+
 The below instructions will install all the required python packages and libraries to run the application.
 
 ```bash
 pip3 install -r requirements.txt
 ```
+
+### Setup .env file
+
+The below instructions will setup the .env file with the required environment variables.
+
+```bash
+cp .env.example .env
+```
+
+Now edit the .env file to add the required environment variables.
 
 ## Usage
 
