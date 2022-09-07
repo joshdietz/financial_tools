@@ -2,6 +2,8 @@ import os
 import sqlite3
 import psycopg2
 import dotenv
+from colorama import init
+from termcolor import colored
 
 dotenv.load_dotenv()
 
@@ -17,3 +19,6 @@ def connect_db():
             password=os.getenv('DB_PASSWORD'),
             host=os.getenv('DB_HOST'),
         )
+
+def log(message):
+    print(colored(message, 'yellow'))

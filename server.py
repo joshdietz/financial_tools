@@ -63,16 +63,20 @@ def return_page(page, css = None, js = None):
         js = 'js/main.js'
     return render_template('main_template.html', page=render_template(page), css=render_template(css), js=render_template(js))
 
-if __name__ == '__main__':
+def setup_database():
+    log('DB Setup: Starting...')
     if os.getenv('DB_DRIVER') == 'sqlite':
-        # check if the database exists
         if not os.path.exists(os.getenv('DB_NAME')):
-            # create the database
+            log('DB Setup: No database found. Creating new SQLite db in root project directory..')
             db = sqlite3.connect(os.getenv('DB_NAME'))
-            # create the users table
-            db.execute('CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT NOT NULL, password TEXT NOT NULL)')
-            # commit the changes
+            # execute the schema.sql
+            with open('schema.sql') as f:
+                db.executescript(f.read())
             db.commit()
-            # close the connection
             db.close()
+        else:
+            log('DB Setup: SQLite database found. Skipping...')
+
+if __name__ == '__main__':
+    setup_database()
     app.run(debug=True)
