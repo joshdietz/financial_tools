@@ -20,5 +20,10 @@ def connect_db():
             host=os.getenv('DB_HOST'),
         )
 
-def log(message):
-    print(colored(message, 'yellow'))
+def log(message, level='info'):
+    if level == 'info':
+        print(colored('[INFO]  ', 'green') + message)
+    elif level == 'warn':
+        print(colored('[WARN]  ', 'yellow') + message)
+    elif level == 'error':
+        print(colored('[ERROR] ', 'red') + message)

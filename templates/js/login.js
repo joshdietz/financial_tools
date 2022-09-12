@@ -7,10 +7,13 @@ function login() {
         "password": password
     });
     sendHTTPAsync("/login", "POST", data, function(response) {
-        if (response.status == 200) {
-            window.location.href = "/home";
+        server_response = JSON.parse(response).response;
+        if (server_response == "success") {
+            // trigger the page to reload
+            window.location.href = "/dashboard";
         } else {
-            alert("Login failed");
+            console.log(server_response);
+            document.getElementById("login_error").innerHTML = server_response;
         }
     });
 }
